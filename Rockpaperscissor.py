@@ -1,53 +1,39 @@
 import random
 
-print("Rules are: \n"
+choices = ["rock", "paper", "scissors"]
+
+def get_winner(user, computer):
+    if user == computer:
+        return "It's a tie!"
+    elif ((user == "rock" and computer == "scissors") or
+          (user == "paper" and computer == "rock") or
+          (user == "scissors" and computer == "paper")):
+        return "User wins!"
+    else:
+        return "Computer wins!"
+    
+def play_game():
+    print("Welcome to Rock, Paper, Scissors!")
+    print("Rules are: \n"
       "Rock vs Paper -- Paper wins."
       "Rock vs Scissor -- Rock wins."
       "Paper vs Scissor -- Scissor wins.")
+    while True:
+        user_choice = input("Enter rock, paper or scissors : ").lower().strip()
 
-while True:
-    print("Enter your choice, Rock, Paper or Scissors:")
-    choice = input("Enter your choice: ").capitalize()
+        if user_choice not in choices:
+            print("Invalid choice! Please try again!")
+            continue  # Skip the current loop and start a new one.
 
-    while choice not in ("Rock", "Paper", "Scissors"):
-        print("Invalid choice. Please choose Rock, Paper or Scissors.")
-        choice = input("Enter your choice: ").capitalize()
+        computer_choice = random.choice(choices)
+        print (f"Computer chose: {computer_choice}")
 
-        print("You chose:", choice)
-        print("Now it's the computers turn...")
+        result = get_winner(user_choice, computer_choice)
+        print(result)
 
-        comp_choice_num = random.randint(1, 3)
-        if comp_choice_num == 1:
-            comp_choice = "Rock"
-        elif comp_choice_num == 2:
-            comp_choice = "Paper"
-        elif comp_choice_num == 3:
-            comp_choice = "Scissors"
+        play_again = input("Do you want to play again? (yes/no) : ").lower().strip()
 
-        print("Computer chose:", comp_choice)
-
-        # Checking draw
-
-        if choice == comp_choice:
-            print("It's a draw...")
-        else:
-
-            # Determining the winner
-
-            if choice == "Rock":
-                if comp_choice == "Paper":
-                    print("Paper wins...")
-            else:
-                print("Rock wins ...")
-            elif choice == "Paper":
-                print("It's a draw...")
-            if comp_choice == "Scissor":
-                    print("Scissor wins ...")
-            else:
-                print("Paper wins ...")
-            elif choice == "Scissor":
-                         
-            if comp_choice == "Rock":
-                print("Rock wins ...")
-            else:
-                print("Scissor wins ...")
+        if play_again == "no":
+            print("Thank you for playing!")
+            break
+play_game()
